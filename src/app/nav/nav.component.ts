@@ -22,7 +22,6 @@ export class NavComponent implements OnInit {
   login(): void {
     this.accountService.login(this.model).subscribe(
       (response) => {
-        this.model.username = '';
         this.model.password = '';
       },
       (error) => {
@@ -32,6 +31,7 @@ export class NavComponent implements OnInit {
   }
 
   logout(): void {
+    this.model.username = '';
     this.accountService.logout();
   }
 }

@@ -28,6 +28,19 @@ export class AccountService {
     );
   }
 
+  register(model: LoginDetails): Observable<User> {
+    return this.http.post(this.baseUrl + 'account/register', model).pipe(
+      map((response: User) => {
+        const user = response;
+        if (user) {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSource.next(user);
+        }
+        return user;
+      })
+    );
+  }
+
   logout(): void {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
